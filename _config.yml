@@ -1,9 +1,13 @@
 title: Learning Pentesting
-iconURL: assets/logo.png
+iconURL: /assets/logo.png
 theme: jekyll-theme-leaf
 
 # for a clean URL
 permalink: :slug
+
+collections:
+  categories:
+    output: true
 
 social:
   twitter: mars_verdaguer

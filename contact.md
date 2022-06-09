@@ -3,8 +3,10 @@ title: Contact
 layout: page
 ---
 
-You can always contact the creator of this theme via [Twitter](https://twitter.com/_SupunKavinda).
+You can contact me on the following social nets:
 
-If you need help with Jekyll, ask questions on [Jekyll Talk](https://talk.jekyllrb.com/).
+- Mail: [pverdaguermars@gmail.com](mailto:pverdaguermars@gmail.com)
+- Twitter: [@mars_verdaguer](https://twitter.com/mars_verdaguer)
+- Instagram: [paumarsverdaguer](https://www.instagram.com/paumarsverdaguer/)
 
-(Change this by editing `contact.md` file)
+I will do my best to answer as fast as possible!

@@ -1,10 +1,12 @@
 ---
-title: Prova
+title: HTB MACHINES
 layout: page
 ---
 
+Màquines HTB
+
 <ul class="posts">
-{% for post in site.tags.hola limit: 20 %}
+{% for post in site.tags.htb limit: 20 %}
   <div class="post_info">
     <li>
          <a href="{{ post.url }}">{{ post.title }}</a>
