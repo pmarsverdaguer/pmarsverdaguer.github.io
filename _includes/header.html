@@ -34,7 +34,10 @@
   {%- endif -%}
 
   <div class="site-icon">
-    <img src="{{ site.iconURL }}" />
+    <a href="{{ "/" | relative_url }}">
+      <img src="{{ site.iconURL }}" />
+    </a>
+    
   </div>
 
 </header>
