@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Deglane Interiors for your interior design project.">
+    <title>Contact | Deglane Interiors</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/png" href="../assets/images/hero.png">
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            background-color: var(--surface-color);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-dark);
+        }
+
+        .contact-info-item {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .contact-info-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo">Deglane Interiors</a>
+            <div class="menu-toggle">☰</div>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../pages/projects.html" class="nav-link">Portfolio</a></li>
+                <li><a href="../pages/about.html" class="nav-link">About</a></li>
+                <li><a href="../pages/contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contact Header -->
+    <header class="project-header container">
+        <span class="section-subtitle">Get in Touch</span>
+        <h1>Start Your Project</h1>
+    </header>
+
+    <!-- Contact Content -->
+    <main class="container">
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-type" class="form-label">Project Type</label>
+                        <select id="project-type" name="project-type" class="form-input">
+                            <option value="residential">Residential Design</option>
+                            <option value="commercial">Commercial Design</option>
+                            <option value="renovation">Renovation</option>
+                            <option value="styling">Styling & Decor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" name="message" rows="5" class="form-textarea" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <p style="margin-bottom: var(--spacing-md);">We are currently accepting new projects for 2025. Please
+                    fill out the form or reach out directly via email to discuss your vision.</p>
+
+                <div class="contact-info-item">
+                    <span class="contact-info-label">Email</span>
+                    <a href="mailto:hello@deglanestudio.com">hello@deglanestudio.com</a>
+                </div>
+
+                <div class="contact-info-item">
+                    <span class="contact-info-label">Studio</span>
+                    <p>123 Design Avenue<br>New York, NY 10012</p>
+                </div>
+
+                <div class="contact-info-item">
+                    <span class="contact-info-label">Follow Us</span>
+                    <div class="social-links" style="justify-content: flex-start; margin-top: 0.5rem;">
+                        <a href="#" style="color: var(--text-primary);">Instagram</a>
+                        <a href="#" style="color: var(--text-primary);">Pinterest</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">Pinterest</a>
+                <a href="#">Houzz</a>
+            </div>
+            <p class="copyright">&copy; 2025 Deglane Interiors. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>
