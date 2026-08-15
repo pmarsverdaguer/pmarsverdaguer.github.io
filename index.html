@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portal de preparación para oposiciones de AENA. Simulación de examen, práctica guiada por categorías y corrección de exámenes pasados.">
+  <title>AENA Oposiciones - Portal de Prácticas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Cabecera Principal -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="brand" onclick="app.showView('landing'); return false;">
+        <div class="logo-box">
+          <img src="logo.png" alt="AENA Logo">
+        </div>
+        <div>
+          <h1 class="brand-title">OPOSICIONES AENA</h1>
+          <p class="brand-sub">Portal de Test y Simulación</p>
+        </div>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="#" class="nav-link" id="nav-landing" onclick="app.showView('landing'); return false;">Inicio</a>
+        <a href="#" class="nav-link" id="nav-config-simulacion" onclick="app.showView('config-simulacion'); return false;">Simulación</a>
+        <a href="#" class="nav-link" id="nav-config-practica" onclick="app.showView('config-practica'); return false;">Práctica</a>
+        <a href="#" class="nav-link" id="nav-history-corrections" onclick="app.showView('history-corrections'); return false;">Correcciones</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido Principal -->
+  <main class="main-container">
+
+    <!-- ====================================================================
+         VISTA 1: LANDING PAGE PRINCIPAL (DISTRIBUCIÓN 2 ARRIBA + 1 ABAJO)
+         ==================================================================== -->
+    <section id="view-landing" class="section-view active">
+      
+      <div class="card" style="text-align: center; padding: 24px;">
+        <h2 style="font-size: 1.5rem; color: var(--aena-navy); margin-bottom: 6px;">Portal de Preparación de Oposiciones AENA</h2>
+        <p style="color: var(--text-muted); max-width: 650px; margin: 0 auto; font-size: 0.95rem;">Seleccione el tipo de prueba que desea realizar para acceder a la configuración personalizada o revisar sus exámenes pasados.</p>
+      </div>
+
+      <!-- Las 3 Opciones Principales (Fila 1: Simulación y Práctica | Fila 2: Corrección en ancho completo) -->
+      <div class="landing-options-grid">
+        
+        <!-- Fila 1 - Columna 1: Simulación de Examen -->
+        <div class="option-card-main" onclick="app.showView('config-simulacion')">
+          <div>
+            <div class="card-icon">⏱️</div>
+            <h3 class="card-heading">Simulación de Examen</h3>
+            <p class="card-text">Simulacro oficial con temporizador activo y selección aleatoria de preguntas. Evaluación con la fórmula oficial de penalización AENA (-0.33 por error).</p>
+          </div>
+          <button type="button" class="btn-card-action">Ir a Simulación →</button>
+        </div>
+
+        <!-- Fila 1 - Columna 2: Práctica Personalizada -->
+        <div class="option-card-main" onclick="app.showView('config-practica')">
+          <div>
+            <div class="card-icon">🎯</div>
+            <h3 class="card-heading">Práctica Personalizada</h3>
+            <p class="card-text">Práctica flexible sin límite de tiempo. Elige exactamente la materia (Verbal, Numérico, Lógico, Listening o Gramática) con explicaciones paso a paso.</p>
+          </div>
+          <button type="button" class="btn-card-action">Ir a Práctica →</button>
+        </div>
+
+        <!-- Fila 2 - Ancho Completo (Fila Inferior): Corrección de Exámenes Pasados -->
+        <div class="option-card-main option-card-full" onclick="app.showView('history-corrections')">
+          <div>
+            <div class="card-icon">📋</div>
+            <h3 class="card-heading">Corrección de Exámenes Pasados y Estadísticas</h3>
+            <p class="card-text">Revisa tus exámenes antiguos realizados, repasa los errores cometidos, practica exclusivamente las preguntas falladas o resetea tus estadísticas completas.</p>
+          </div>
+          <button type="button" class="btn-card-action" style="background-color: var(--aena-navy); color: white;">Ver Historial y Correcciones →</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
+         VISTA 2: PÁGINA DE CONFIGURACIÓN DE SIMULACIÓN DE EXAMEN
+         ==================================================================== -->
+    <section id="view-config-simulacion" class="section-view">
+      
+      <div class="card">
+        <h2 class="card-title">⏱️ Configuración de Simulación de Examen Oficial</h2>
+        
+        <div class="info-banner">
+          <strong>Reglas del Examen Oficial AENA:</strong>
+          <ul style="margin-left: 20px; margin-top: 4px;">
+            <li>Cada acierto suma <strong>+1.00 punto</strong>.</li>
+            <li>Cada fallo resta <strong>-0.33 puntos</strong> (3 errores descuentan 1 acierto).</li>
+            <li>Las respuestas en blanco <strong>no puntúan ni penalizan</strong>.</li>
+            <li>El temporizador se calculará automáticamente en función del número de preguntas.</li>
+          </ul>
+        </div>
+
+        <div class="config-box">
+          <div class="form-grid">
+            
+            <div class="form-group">
+              <label class="form-label" for="sim-category">Categoría del Examen:</label>
+              <select id="sim-category" class="form-control">
+                <option value="all">Examen Global (Aptitudes + Inglés)</option>
+                <option value="test_aptitudes">Solo Test de Aptitudes (Verbal, Numérico, Lógico)</option>
+                <option value="test_ingles">Solo Test de Inglés (Listening + Gramática)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="sim-questions-count">Número de Preguntas:</label>
+              <select id="sim-questions-count" class="form-control">
+                <option value="10">10 Preguntas (10 Minutos)</option>
+                <option value="20" selected>20 Preguntas (20 Minutos)</option>
+                <option value="30">30 Preguntas (30 Minutos)</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 10px;">
+            <button type="button" class="btn-primary" onclick="app.startSimulacion()">
+              ▶ Comenzar Simulación Oficial
+            </button>
+            <button type="button" class="btn-secondary" onclick="app.showView('landing')">
+              ◀ Volver al Inicio
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
+         VISTA 3: PÁGINA DE CONFIGURACIÓN DE PRÁCTICA PERSONALIZADA
+         ==================================================================== -->
+    <section id="view-config-practica" class="section-view">
+      
+      <div class="card">
+        <h2 class="card-title">🎯 Configuración de Práctica Personalizada</h2>
+        
+        <div class="info-banner">
+          Configura un entrenamiento a tu medida: sin tiempo límite, con comprobación instantánea de respuesta y explicaciones técnicas detalladas por cada pregunta.
+        </div>
+
+        <div class="config-box">
+          <div class="form-grid">
+            
+            <div class="form-group">
+              <label class="form-label" for="prac-category">Categoría Principal:</label>
+              <select id="prac-category" class="form-control" onchange="app.onPracticaCategoryChange()">
+                <option value="all">Todas las Categorías (Aptitudes e Inglés)</option>
+                <option value="test_aptitudes">Test de Aptitudes</option>
+                <option value="test_ingles">Test de Inglés</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prac-type">Tipo de Prueba:</label>
+              <select id="prac-type" class="form-control" onchange="app.onPracticaTypeChange()">
+                <option value="all">Todos los Tipos</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prac-subtype">Subtipo Específico:</label>
+              <select id="prac-subtype" class="form-control">
+                <option value="all">Todos los Subtipos</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prac-questions-count">Nº de Preguntas:</label>
+              <select id="prac-questions-count" class="form-control" onchange="app.onPracticaQuestionCountChange()">
+                <option value="5">5 Preguntas</option>
+                <option value="10" selected>10 Preguntas</option>
+                <option value="25">25 Preguntas</option>
+                <option value="50">50 Preguntas</option>
+                <option value="100">100 Preguntas</option>
+                <option value="200">200 Preguntas</option>
+                <option value="500">500 Preguntas</option>
+                <option value="700">700 Preguntas (Subtipo completo)</option>
+                <option value="custom">✏️ Número Manual / Personalizado...</option>
+              </select>
+            </div>
+
+            <div class="form-group" id="prac-questions-manual-box" style="display: none;">
+              <label class="form-label" for="prac-questions-manual">Introduce el Número Exacto:</label>
+              <input type="number" id="prac-questions-manual" class="form-control" min="1" max="700" value="10" placeholder="Ej: 7, 25, 150, 700...">
+            </div>
+
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 10px;">
+            <button type="button" class="btn-primary" onclick="app.startPractica()">
+              ▶ Iniciar Práctica Guiada
+            </button>
+            <button type="button" class="btn-secondary" onclick="app.showView('landing')">
+              ◀ Volver al Inicio
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
+         VISTA 4: PÁGINA DE CORRECCIÓN Y REVISIÓN DE EXÁMENES PASADOS
+         ==================================================================== -->
+    <section id="view-history-corrections" class="section-view">
+      
+      <!-- Card de Cobertura del Banco y Notas Medias por Apartado -->
+      <div class="card">
+        <h2 class="card-title">📊 Estadísticas y Cobertura por Categoría</h2>
+        <p class="card-text">Seleccione un apartado para consultar el score medio y el porcentaje de preguntas del banco oficial practicadas en sus distintos tipos.</p>
+
+        <!-- Pestañas de Catalogación (Global, Aptitudes, Inglés) -->
+        <div class="stats-tab-bar">
+          <button type="button" class="stats-tab-btn active" id="tab-btn-global" onclick="app.switchStatsTab('global')">
+            🌐 Score Global <span class="tab-badge" id="badge-tab-global">-</span>
+          </button>
+          <button type="button" class="stats-tab-btn" id="tab-btn-aptitudes" onclick="app.switchStatsTab('aptitudes')">
+            📊 Test de Aptitudes <span class="tab-badge" id="badge-tab-aptitudes">-</span>
+          </button>
+          <button type="button" class="stats-tab-btn" id="tab-btn-ingles" onclick="app.switchStatsTab('ingles')">
+            ✈️ Test de Inglés <span class="tab-badge" id="badge-tab-ingles">-</span>
+          </button>
+        </div>
+
+        <div id="coverage-stats-container">
+          <!-- Generado dinámicamente desde JS -->
+        </div>
+      </div>
+
+      <!-- Card de Registro de Exámenes Pasados (Filtrado por Tema / Sub-apartado) -->
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+          <h2 class="card-title" style="margin-bottom: 0;">📋 Registro de Exámenes Realizados</h2>
+          <div id="history-filter-badge" style="font-size: 0.85rem; font-weight: 700; color: var(--aena-navy);">
+            <!-- Indicador dinámico de filtro -->
+          </div>
+        </div>
+        <p class="card-text">Consulta tus pruebas anteriores filtradas por la categoría o sub-apartado seleccionado arriba.</p>
+
+        <!-- Listado de Exámenes Pasados -->
+        <div id="history-list-container">
+          <!-- Tabla o tarjetas generadas por JS -->
+        </div>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+          <button type="button" class="btn-secondary" onclick="app.showView('landing')">
+            ◀ Volver al Inicio
+          </button>
+          
+          <button type="button" class="btn-danger" onclick="app.confirmResetAllData()">
+            🗑️ Borrar Historial y Resetear Estadísticas
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
+         VISTA 5: REVISIÓN EN DETALLE DE UN EXAMEN PASADO ESPECÍFICO
+         ==================================================================== -->
+    <section id="view-past-exam-detail" class="section-view">
+      
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h2 class="card-title" id="past-exam-title">Revisión de Examen</h2>
+          <button type="button" class="btn-secondary" onclick="app.showView('history-corrections')">
+            ◀ Volver al Historial
+          </button>
+        </div>
+
+        <div class="info-banner" id="past-exam-meta-banner">
+          Cargando metadatos del examen...
+        </div>
+
+        <div class="review-list" id="past-exam-questions-list">
+          <!-- Lista con preguntas explicadas del examen pasado -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
+         VISTA 6: MOTOR DE EXAMEN EN CURSO
+         ==================================================================== -->
+    <section id="view-exam" class="section-view">
+      
+      <div class="exam-header">
+        <div class="exam-title-info">
+          <span id="exam-mode-badge" class="badge badge-tipo">Simulación</span>
+          <span id="exam-current-title">Cargando test...</span>
+        </div>
+        <div class="timer-badge" id="exam-timer">--:--</div>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="exam-progress-fill"></div>
+      </div>
+
+      <div class="exam-layout">
+        
+        <div class="question-box">
+          <div class="question-meta">
+            <span class="badge badge-tipo" id="q-badge-tipo">Tipo</span>
+            <span class="badge badge-subtipo" id="q-badge-subtipo">Subtipo</span>
+            <span style="margin-left: auto; font-weight: 700; font-size: 0.85rem; color: var(--text-muted);" id="q-number-indicator">Pregunta 1 de 10</span>
+          </div>
+
+          <!-- Reproductor de Audio (Listening) -->
+          <div class="audio-player-box" id="audio-container" style="display: none;">
+            <button type="button" class="btn-audio" onclick="app.playListeningAudio()">
+              🔊 Locución de Audio (Listening)
+            </button>
+            <button type="button" class="btn-audio" style="background-color: var(--aena-navy-light);" onclick="app.toggleTranscription()">
+              📄 Texto Transcripción
+            </button>
+            <div class="audio-status" id="audio-status-msg">Haz clic para escuchar el audio en inglés</div>
+          </div>
+          
+          <div id="audio-transcript-box" style="display: none; background: #ffffff; border: 1px dashed var(--aena-lime); padding: 10px; margin-bottom: 15px; font-style: italic; font-size: 0.9rem;">
+          </div>
+
+          <div class="question-text" id="q-text-body">
+            Enunciado...
+          </div>
+
+          <div class="options-list" id="q-options-container">
+            <!-- Opciones A, B, C, D -->
+          </div>
+
+          <div class="explanation-box" id="q-explanation-container" style="display: none;">
+            <div class="explanation-title">💡 Explicación Técnica:</div>
+            <div id="q-explanation-text">Texto de explicación...</div>
+          </div>
+
+          <div class="exam-controls">
+            <button type="button" class="btn-secondary" id="btn-prev-q" onclick="app.prevQuestion()">
+              ← Anterior
+            </button>
+
+            <button type="button" class="btn-secondary" id="btn-check-practice" style="display: none; background-color: var(--aena-lime-light); color: var(--aena-navy); font-weight: 700;" onclick="app.checkAnswerPractice()">
+              ✔️ Comprobar Respuesta
+            </button>
+
+            <button type="button" class="btn-primary" id="btn-next-q" onclick="app.nextQuestion()">
+              Siguiente →
+            </button>
+
+            <button type="button" class="btn-primary" id="btn-finish-test" style="background-color: var(--color-error); color: white;" onclick="app.confirmFinishTest()">
+              🏁 Entregar Test
+            </button>
+          </div>
+
+        </div>
+
+        <div class="palette-box">
+          <div class="palette-title">Navegador de Preguntas</div>
+          <div class="palette-grid" id="palette-grid-container">
+          </div>
+          
+          <div class="palette-legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background-color: var(--aena-navy);"></div>
+              <span>Respondida</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background-color: #f1f5f9; border: 1px solid var(--border-color);"></div>
+              <span>Pendiente</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <button type="button" class="btn-secondary" style="width: 100%; text-align: center; font-size: 0.85rem;" onclick="app.cancelTest()">
+              ❌ Cancelar Test
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
+         VISTA 7: RESULTADOS DE TEST RECIÉN COMPLETADO
+         ==================================================================== -->
+    <section id="view-results" class="section-view">
+      
+      <div class="card">
+        <h2 class="card-title">📊 Resultado del Test Finalizado</h2>
+        <p class="card-text" id="results-meta-desc">Resumen oficial de respuestas obtenidas.</p>
+
+        <div class="results-summary-grid">
+          
+          <div class="result-card">
+            <div class="result-val score" id="res-total-score">0.00</div>
+            <div class="result-label">Nota Final</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-val" style="color: var(--color-success);" id="res-correct-count">0</div>
+            <div class="result-label">Aciertos</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-val" style="color: var(--color-error);" id="res-wrong-count">0</div>
+            <div class="result-label">Fallos</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-val" style="color: var(--color-warning);" id="res-blank-count">0</div>
+            <div class="result-label">No Respondidas</div>
+          </div>
+
+        </div>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button type="button" class="btn-primary" onclick="app.repeatTest()">
+            🔄 Repetir Este Test
+          </button>
+          <button type="button" class="btn-secondary" onclick="app.showView('history-corrections')">
+            📋 Ir a Corrección de Exámenes
+          </button>
+          <button type="button" class="btn-secondary" onclick="app.showView('landing')">
+            🏠 Inicio
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">🔍 Corrección y Explicaciones</h2>
+        <div class="review-list" id="results-review-container">
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p><strong>AENA Oposiciones - Portal de Prácticas</strong> | Herramienta de estudio directa.</p>
+  </footer>
+
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
