@@ -359,7 +359,7 @@ export function App() {
       <main
         className={`max-w-[1600px] w-full mx-auto px-3 sm:px-6 lg:px-8 pb-20 md:pb-8 ${
           currentTab === 'dashboard'
-            ? 'flex-1 min-h-0 py-2 sm:py-3 flex flex-col'
+            ? 'flex-1 lg:min-h-0 py-2 sm:py-3 flex flex-col'
             : 'pt-4 sm:pt-6 flex-1'
         }`}
       >

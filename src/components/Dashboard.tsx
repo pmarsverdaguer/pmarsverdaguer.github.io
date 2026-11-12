@@ -48,7 +48,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
   const getFruit = (id: string | null) => (id ? fruitsMap[id] : null);
 
   return (
-    <div className="w-full flex-1 min-h-0 flex flex-col justify-between gap-2.5 sm:gap-3 animate-fade-in">
+    <div className="w-full flex-1 lg:min-h-0 flex flex-col gap-3 lg:justify-between animate-fade-in">
       
       {/* Top Banner: Navigation & Zoom Actions */}
       <div className="bg-[#fcfbf7] border border-[#e8e2d4] rounded-2xl px-5 sm:px-6 py-2.5 sm:py-3 shadow-xs shrink-0">
@@ -123,8 +123,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
       </div>
 
-      {/* 7 Days of the Week: Se adapta a la altura exacta de la pantalla SIN scroll */}
-      <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-2.5 sm:gap-3">
+      {/* 7 Days of the Week: En escritorio se ajusta a la pantalla, en móvil se expande de forma natural */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-3 sm:gap-3.5 lg:flex-1 lg:min-h-0">
         {Array.from({ length: 7 }, (_, dayIdx) => {
           const dayPlan = currentWeekPlan.days[dayIdx];
           const isToday = isViewingCurrentWeek && dayIdx === todayDayIdx;
@@ -141,7 +141,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <div
               key={dayIdx}
               onClick={() => onSelectDayForDetail(dayIdx)}
-              className={`flex flex-col justify-between h-full min-h-0 rounded-2xl p-3 sm:p-3.5 cursor-pointer transition-all duration-200 border text-left hover:shadow-lg ${
+              className={`flex flex-col justify-between h-auto lg:h-full lg:min-h-0 rounded-2xl p-3.5 sm:p-4 cursor-pointer transition-all duration-200 border text-left hover:shadow-lg ${
                 isToday
                   ? 'bg-[#f4f7f4] border-[#709572] ring-2 ring-[#709572]/20 shadow-xs'
                   : 'bg-white border-[#e8e1d2] hover:border-[#8cb08e]'
@@ -165,10 +165,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
               </div>
 
               {/* Day Content */}
-              <div className="flex-1 min-h-0 flex flex-col justify-between gap-2">
+              <div className="flex flex-col justify-between gap-2.5 lg:flex-1 lg:min-h-0">
                 
                 {/* ALMUERZO */}
-                <div className="flex-1 min-h-0 bg-[#fbf9f5] rounded-xl p-2.5 sm:p-3 border border-[#eee6d8] flex flex-col justify-between">
+                <div className="bg-[#fbf9f5] rounded-xl p-3 sm:p-3.5 border border-[#eee6d8] flex flex-col justify-between gap-2 lg:flex-1 lg:min-h-0 min-h-[115px]">
                   <div>
                     <div className="flex items-center justify-between gap-1 mb-1">
                       <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#8b7965]">
@@ -215,7 +215,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 </div>
 
                 {/* CENA */}
-                <div className="flex-1 min-h-0 bg-[#fbf9f5] rounded-xl p-2.5 sm:p-3 border border-[#eee6d8] flex flex-col justify-between">
+                <div className="bg-[#fbf9f5] rounded-xl p-3 sm:p-3.5 border border-[#eee6d8] flex flex-col justify-between gap-2 lg:flex-1 lg:min-h-0 min-h-[115px]">
                   <div>
                     <div className="flex items-center justify-between gap-1 mb-1">
                       <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#697b8b]">
@@ -264,7 +264,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               </div>
 
               {/* Footer hint */}
-              <div className="shrink-0 mt-2 pt-1.5 text-xs text-[#527354] font-semibold text-center flex items-center justify-center space-x-1 border-t border-[#f1ebe0]">
+              <div className="shrink-0 mt-2.5 pt-2 text-xs text-[#527354] font-semibold text-center flex items-center justify-center space-x-1 border-t border-[#f1ebe0]">
                 <span>Ver resumen del día</span>
                 <ArrowRight className="w-3.5 h-3.5 text-[#7aa07c]" />
               </div>
