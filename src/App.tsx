@@ -350,14 +350,17 @@ export function App() {
         onSelectTab={handleSelectTab}
         onOpenDataBackup={() => setIsBackupModalOpen(true)}
         onLockApp={handleLockApp}
+        onOpenShoppingList={() => setIsShoppingListOpen(true)}
+        onOpenMonthView={() => setIsMonthModalOpen(true)}
+        onChangePin={handleChangePin}
       />
 
       {/* Main Content Area: Centered vertically on Dashboard between navbar and bottom */}
       <main
-        className={`max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-8 ${
+        className={`max-w-[1600px] w-full mx-auto px-3 sm:px-6 lg:px-8 pb-20 md:pb-8 ${
           currentTab === 'dashboard'
             ? 'flex-1 min-h-0 py-2 sm:py-3 flex flex-col'
-            : 'pt-6 pb-12 flex-1'
+            : 'pt-4 sm:pt-6 flex-1'
         }`}
       >
         {currentTab === 'dashboard' && (
@@ -408,7 +411,7 @@ export function App() {
       {currentTab !== 'dashboard' && (
         <footer className="border-t border-[#ede6d8] py-5 bg-[#faf8f4] text-center text-xs text-[#7e8c81]">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2.5">
-            <span>Planificador de Menú Semanal</span>
+            <span>Menú Semanal</span>
             <div>
               <button
                 type="button"

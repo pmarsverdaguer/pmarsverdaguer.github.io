@@ -281,11 +281,6 @@ export const PinLockScreen: React.FC<PinLockScreenProps> = ({ onUnlock }) => {
         </div>
       </div>
 
-      {/* Footer hint */}
-      <p className="text-[11px] text-[#968974] mt-6 text-center max-w-xs">
-        Planificador Nutricional Familiar · Datos privados
-      </p>
-
       {/* Shake animation styles */}
       <style>{`
         @keyframes shake {

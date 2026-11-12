@@ -635,7 +635,7 @@ export const StandaloneShoppingListView: React.FC<StandaloneShoppingListViewProp
 
         {/* Footer */}
         <div className="bg-[#f0e6d2] px-6 py-3 border-t-2 border-[#dfd2be] text-center font-serif text-xs text-[#716350] italic">
-          Planificador Nutricional · Lista de la compra
+          Lista de la compra
         </div>
       </div>
     </div>

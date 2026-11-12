@@ -230,25 +230,25 @@ export const Planner: React.FC<PlannerProps> = ({
           {/* Week Header & Actions Bar: Con la misma anchura/altura vertical que la del dashboard */}
           <div className="bg-[#fcfbf7] border border-[#e8e2d4] rounded-2xl px-5 sm:px-6 py-2.5 sm:py-3 shadow-xs">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center justify-between sm:justify-start space-x-2 sm:space-x-3 w-full sm:w-auto">
                 <button
                   onClick={() => onNavigateWeek(-1)}
-                  className="p-2.5 rounded-xl bg-white border border-[#dfd7c8] text-[#554e42] hover:bg-[#f6f2ea] transition shadow-xs cursor-pointer"
+                  className="p-2 sm:p-2.5 rounded-xl bg-white border border-[#dfd7c8] text-[#554e42] hover:bg-[#f6f2ea] transition shadow-xs cursor-pointer active:scale-95"
                   title="Semana anterior"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <div className="flex items-center space-x-2.5">
-                  <h2 className="text-xl sm:text-2xl font-semibold text-[#2f3833]">
+                <div className="flex items-center space-x-2">
+                  <h2 className="text-base sm:text-2xl font-semibold text-[#2f3833]">
                     Semana {currentWeekPlan.weekNumber}
                   </h2>
-                  <span className="text-xs uppercase tracking-wider font-bold text-[#507252] bg-[#eef4ee] px-3 py-1 rounded-full border border-[#d6e4d6] inline-flex items-center justify-center leading-none">
+                  <span className="text-[11px] sm:text-xs font-bold text-[#507252] bg-[#eef4ee] px-2.5 py-0.5 rounded-full border border-[#d6e4d6] inline-flex items-center justify-center leading-none">
                     {currentWeekPlan.year}
                   </span>
                 </div>
                 <button
                   onClick={() => onNavigateWeek(1)}
-                  className="p-2.5 rounded-xl bg-white border border-[#dfd7c8] text-[#554e42] hover:bg-[#f6f2ea] transition shadow-xs cursor-pointer"
+                  className="p-2 sm:p-2.5 rounded-xl bg-white border border-[#dfd7c8] text-[#554e42] hover:bg-[#f6f2ea] transition shadow-xs cursor-pointer active:scale-95"
                   title="Semana siguiente"
                 >
                   <ChevronRight className="w-4 h-4" />
@@ -257,32 +257,32 @@ export const Planner: React.FC<PlannerProps> = ({
                 {!isViewingCurrentWeek && onResetToCurrentWeek && (
                   <button
                     onClick={onResetToCurrentWeek}
-                    className="text-xs text-[#507252] hover:text-[#385139] font-semibold bg-[#eef4ee] hover:bg-[#e2ede2] border border-[#d2e2d2] px-2.5 py-1.5 rounded-xl transition cursor-pointer shadow-2xs whitespace-nowrap"
+                    className="text-[11px] sm:text-xs text-[#507252] hover:text-[#385139] font-semibold bg-[#eef4ee] hover:bg-[#e2ede2] border border-[#d2e2d2] px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl transition cursor-pointer shadow-2xs whitespace-nowrap active:scale-95"
                     title="Volver a la semana actual"
                   >
-                    Volver a hoy
+                    Hoy
                   </button>
                 )}
               </div>
 
               {/* Quick Balance Actions */}
-              <div className="flex items-center flex-wrap gap-2 sm:gap-2.5">
+              <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 sm:gap-2.5 w-full sm:w-auto">
                 <button
                   onClick={handleAutoFill}
-                  className="flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-3.5 py-2 rounded-xl bg-[#527354] hover:bg-[#435e45] text-white transition text-xs sm:text-sm font-semibold shadow-xs cursor-pointer"
+                  className="flex items-center justify-center space-x-1.5 sm:space-x-2 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl bg-[#527354] hover:bg-[#435e45] text-white transition text-xs sm:text-sm font-semibold shadow-xs cursor-pointer active:scale-95"
                   title="Completa automáticamente los días y comidas vacías respetando las ingestas mínimas"
                 >
                   <Sparkles className="w-4 h-4" />
-                  <span>Completar Menú</span>
+                  <span>Completar</span>
                 </button>
 
                 <button
                   onClick={handleClearWholeWeek}
-                  className="flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-3.5 py-2 rounded-xl bg-white border border-[#e4dccd] text-[#847866] hover:text-[#b8523c] hover:border-[#f0c2b6] transition text-xs sm:text-sm font-semibold shadow-xs cursor-pointer"
+                  className="flex items-center justify-center space-x-1.5 sm:space-x-2 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl bg-white border border-[#e4dccd] text-[#847866] hover:text-[#b8523c] hover:border-[#f0c2b6] transition text-xs sm:text-sm font-semibold shadow-xs cursor-pointer active:scale-95"
                   title="Vaciar todas las comidas de la semana"
                 >
                   <RotateCcw className="w-4 h-4" />
-                  <span>Vaciar Semana</span>
+                  <span>Vaciar</span>
                 </button>
               </div>
             </div>
