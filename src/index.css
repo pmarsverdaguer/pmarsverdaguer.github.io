@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-main: #fcfbf9;
+    --card-bg: #ffffff;
+    --sage-50: #f4f7f4;
+    --sage-100: #e5ece5;
+    --sage-200: #cbdbcb;
+    --sage-500: #698b69;
+    --sage-700: #425c42;
+    --sand-50: #faf7f2;
+    --sand-100: #f3ede2;
+    --sand-200: #e4d8c5;
+    --terracotta-soft: #d9886a;
+    --text-primary: #2d3748;
+    --text-secondary: #5a6a7e;
+    --header-height: 77px;
+  }
+
+  /* Tamaño base escalado fluidamente para móviles (iPhone, Pixel), tablets (iPad) y escritorio */
+  html {
+    font-size: 15px;
+    scrollbar-gutter: stable;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (min-width: 640px) {
+    html {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    html {
+      font-size: 16.8px;
+    }
+  }
+
+  body, h1, h2, h3, h4, h5, h6, .font-serif {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  body {
+    background-color: #fbfaf7;
+    color: #2b332c;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  /* Evita el auto-zoom disruptivo en Safari iOS al enfocar campos de texto */
+  @media (max-width: 640px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f4efe7;
+}
+::-webkit-scrollbar-thumb {
+  background: #c3cfc3;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9ab09a;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.12s ease-out forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.12s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Print adjustments so PDF / paper output preserves the exact notebook paper background and lines */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body {
+    background-color: transparent !important;
+    color: #2c261e !important;
+  }
+  @page {
+    margin: 1.2cm;
+    size: auto;
+  }
+}
