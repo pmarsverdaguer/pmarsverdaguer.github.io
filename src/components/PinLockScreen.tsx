@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Lock, KeyRound, Check, AlertCircle, ShieldCheck } from 'lucide-react';
 import {
   PIN_STORAGE_KEY,
-  PIN_REMEMBER_KEY,
   PIN_SESSION_KEY,
   hashPin,
 } from '../utils/pinAuth';
@@ -26,6 +25,7 @@ export const PinLockScreen: React.FC<PinLockScreenProps> = ({ onUnlock }) => {
       return null;
     }
   });
+  const [isCheckingRemote, setIsCheckingRemote] = useState<boolean>(!storedHash);
 
   // Consultar la nube al montar para saber si ya existe un PIN compartido de la pareja
   useEffect(() => {
@@ -39,7 +39,17 @@ export const PinLockScreen: React.FC<PinLockScreenProps> = ({ onUnlock }) => {
         } catch {
           // ignore
         }
+      } else {
+        setStoredHash(null);
+        try {
+          localStorage.removeItem(PIN_STORAGE_KEY);
+        } catch {
+          // ignore
+        }
       }
+      setIsCheckingRemote(false);
+    }).catch(() => {
+      if (isMounted) setIsCheckingRemote(false);
     });
     return () => {
       isMounted = false;
@@ -53,7 +63,6 @@ export const PinLockScreen: React.FC<PinLockScreenProps> = ({ onUnlock }) => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isShaking, setIsShaking] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [rememberDevice, setRememberDevice] = useState(true);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -101,9 +110,6 @@ export const PinLockScreen: React.FC<PinLockScreenProps> = ({ onUnlock }) => {
             localStorage.setItem(PIN_STORAGE_KEY, hashed);
             setStoredHash(hashed);
             sessionStorage.setItem(PIN_SESSION_KEY, 'true');
-            if (rememberDevice) {
-              localStorage.setItem(PIN_REMEMBER_KEY, 'true');
-            }
 
             // Sincronizar PIN inicial con Supabase
             await pushRemoteSharedData({ pinHash: hashed });
@@ -148,11 +154,6 @@ export const PinLockScreen: React.FC<PinLockScreenProps> = ({ onUnlock }) => {
         if (valid) {
           setIsSuccess(true);
           sessionStorage.setItem(PIN_SESSION_KEY, 'true');
-          if (rememberDevice) {
-            localStorage.setItem(PIN_REMEMBER_KEY, 'true');
-          } else {
-            localStorage.removeItem(PIN_REMEMBER_KEY);
-          }
           setTimeout(() => {
             onUnlock(remoteData || undefined);
           }, 450);
@@ -268,23 +269,16 @@ export const PinLockScreen: React.FC<PinLockScreenProps> = ({ onUnlock }) => {
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>¡Acceso correcto!</span>
             </p>
+          ) : isCheckingRemote ? (
+            <span className="text-[11px] text-[#9c8e78] animate-pulse">
+              Comprobando seguridad en la nube...
+            </span>
           ) : (
             <span className="text-[11px] text-[#9c8e78]">
               Toca aquí o escribe con tu teclado
             </span>
           )}
         </div>
-
-        {/* Remember device checkbox */}
-        <label className="flex items-center space-x-2 text-xs text-[#5f5443] cursor-pointer mt-2 pt-4 border-t border-[#f0eae0] w-full justify-center select-none">
-          <input
-            type="checkbox"
-            checked={rememberDevice}
-            onChange={(e) => setRememberDevice(e.target.checked)}
-            className="rounded border-[#c8bfae] text-[#527354] focus:ring-[#527354] cursor-pointer w-4 h-4"
-          />
-          <span>Recordar en este dispositivo</span>
-        </label>
       </div>
 
       {/* Footer hint */}

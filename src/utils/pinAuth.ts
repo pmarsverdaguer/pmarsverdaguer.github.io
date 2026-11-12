@@ -24,29 +24,17 @@ export async function hashPin(pin: string): Promise<string> {
 
 export function isPinUnlocked(): boolean {
   try {
-    const storedHash = localStorage.getItem(PIN_STORAGE_KEY);
-    // Si no hay PIN configurado aún, no está bloqueado
-    if (!storedHash) return true;
-
-    // Si el usuario marcó "Recordar en este dispositivo"
-    if (localStorage.getItem(PIN_REMEMBER_KEY) === 'true') {
-      return true;
-    }
-
-    // Si ya desbloqueó en la sesión actual
-    if (sessionStorage.getItem(PIN_SESSION_KEY) === 'true') {
-      return true;
-    }
+    // La app solo está desbloqueada si la pestaña actual tiene la sesión activa verificada
+    return sessionStorage.getItem(PIN_SESSION_KEY) === 'true';
   } catch {
-    // fallback
+    return false;
   }
-  return false;
 }
 
 export function lockApp(): void {
   try {
-    localStorage.removeItem(PIN_REMEMBER_KEY);
     sessionStorage.removeItem(PIN_SESSION_KEY);
+    localStorage.removeItem(PIN_REMEMBER_KEY);
   } catch {
     // fallback
   }
