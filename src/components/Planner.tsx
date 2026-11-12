@@ -772,11 +772,11 @@ export const Planner: React.FC<PlannerProps> = ({
         createPortal(
           <div
             onClick={() => setActiveSlot(null)}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-stone-900/15 backdrop-blur-xs cursor-pointer"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-6 bg-stone-900/25 backdrop-blur-xs cursor-pointer"
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-[#ded5c5] overflow-hidden animate-scale-up cursor-default my-auto"
+              className="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[92dvh] sm:max-h-[85vh] flex flex-col shadow-2xl border border-[#ded5c5] overflow-hidden animate-scale-up cursor-default my-auto"
             >
               
               {/* Modal Header */}

@@ -144,11 +144,11 @@ export const DataBackupModal: React.FC<DataBackupModalProps> = ({
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-6 bg-stone-900/40 backdrop-blur-xs cursor-pointer overflow-y-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-6 bg-stone-900/40 backdrop-blur-xs cursor-pointer overflow-y-auto"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full shadow-2xl border border-[#ded5c5] overflow-hidden animate-scale-up cursor-default my-auto flex flex-col max-h-[92vh] sm:max-h-[90vh]"
+        className="bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full shadow-2xl border border-[#ded5c5] overflow-hidden animate-scale-up cursor-default my-auto flex flex-col max-h-[92dvh] sm:max-h-[90vh]"
       >
         {/* Header */}
         <div className="px-5 sm:px-6 py-3.5 sm:py-4 border-b border-[#eee7da] bg-[#faf8f4] flex items-center justify-between shrink-0">

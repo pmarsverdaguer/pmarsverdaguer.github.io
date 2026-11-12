@@ -358,12 +358,12 @@ export const ShoppingListModal: React.FC<ShoppingListModalProps> = ({
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-6 bg-stone-900/50 backdrop-blur-xs cursor-pointer overflow-y-auto print:p-0 print:static print:inset-auto print:bg-transparent print:overflow-visible print:block"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-6 bg-stone-900/50 backdrop-blur-xs cursor-pointer overflow-y-auto print:p-0 print:static print:inset-auto print:bg-transparent print:overflow-visible print:block"
     >
       {/* Notebook Sheet Container: Proportioned like a real notebook / bloc de notas */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-[#faf6eb] text-[#2c261e] rounded-2xl sm:rounded-3xl max-w-lg w-full shadow-2xl border-2 border-[#dfd5c2] overflow-hidden my-auto cursor-default flex flex-col max-h-[90vh] sm:max-h-[85vh] animate-scale-up relative print:max-h-none print:shadow-none print:border-none print:max-w-none print:w-full print:m-0 print:rounded-none print:bg-[#faf6eb] print:overflow-visible"
+        className="bg-[#faf6eb] text-[#2c261e] rounded-2xl sm:rounded-3xl max-w-lg w-full shadow-2xl border-2 border-[#dfd5c2] overflow-hidden my-auto cursor-default flex flex-col max-h-[92dvh] sm:max-h-[85vh] animate-scale-up relative print:max-h-none print:shadow-none print:border-none print:max-w-none print:w-full print:m-0 print:rounded-none print:bg-[#faf6eb] print:overflow-visible"
         style={{
           boxShadow: '0 20px 45px -10px rgba(45, 35, 20, 0.25), 0 0 0 1px rgba(180, 160, 130, 0.2)',
         }}

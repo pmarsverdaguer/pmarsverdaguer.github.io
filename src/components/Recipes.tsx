@@ -1052,11 +1052,11 @@ export const Recipes: React.FC<RecipesProps> = ({
         createPortal(
           <div
             onClick={() => setViewingDish(null)}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-6 bg-stone-900/30 backdrop-blur-xs cursor-pointer overflow-y-auto"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-6 bg-stone-900/30 backdrop-blur-xs cursor-pointer overflow-y-auto"
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl sm:rounded-3xl max-w-xl w-full max-h-[92vh] sm:max-h-[85vh] flex flex-col shadow-2xl border border-[#ded5c5] overflow-hidden animate-scale-up cursor-default my-auto"
+              className="bg-white rounded-2xl sm:rounded-3xl max-w-xl w-full max-h-[92dvh] sm:max-h-[85vh] flex flex-col shadow-2xl border border-[#ded5c5] overflow-hidden animate-scale-up cursor-default my-auto"
             >
               <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-[#f0eae0] bg-[#faf8f4] flex items-center justify-between shrink-0 gap-2">
                 <div className="min-w-0">
@@ -1271,12 +1271,12 @@ export const Recipes: React.FC<RecipesProps> = ({
         createPortal(
           <div
             onClick={() => setIsFormOpen(false)}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-6 bg-stone-900/30 backdrop-blur-xs cursor-pointer overflow-y-auto"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-6 bg-stone-900/30 backdrop-blur-xs cursor-pointer overflow-y-auto"
           >
             <form
               onClick={(e) => e.stopPropagation()}
               onSubmit={handleSaveForm}
-              className="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[94vh] sm:max-h-[90vh] flex flex-col shadow-2xl border border-[#ded5c5] overflow-hidden animate-scale-up cursor-default my-auto"
+              className="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[92dvh] sm:max-h-[90vh] flex flex-col shadow-2xl border border-[#ded5c5] overflow-hidden animate-scale-up cursor-default my-auto"
             >
               <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-[#f0eae0] bg-[#faf8f4] flex items-center justify-between shrink-0">
                 <h3 className="font-semibold text-lg sm:text-xl text-[#2f3833]">
@@ -1727,12 +1727,12 @@ export const Recipes: React.FC<RecipesProps> = ({
         createPortal(
           <div
             onClick={() => setIsFruitModalOpen(false)}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-6 bg-stone-900/30 backdrop-blur-xs cursor-pointer overflow-y-auto"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-6 bg-stone-900/30 backdrop-blur-xs cursor-pointer overflow-y-auto"
           >
             <form
               onClick={(e) => e.stopPropagation()}
               onSubmit={handleSaveFruitForm}
-              className="bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full max-h-[92vh] sm:max-h-[90vh] flex flex-col shadow-2xl border border-[#ded5c5] overflow-hidden animate-scale-up cursor-default my-auto"
+              className="bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full max-h-[92dvh] sm:max-h-[90vh] flex flex-col shadow-2xl border border-[#ded5c5] overflow-hidden animate-scale-up cursor-default my-auto"
             >
               <div className="px-6 py-4 border-b border-[#f0eae0] bg-[#faf8f4] flex items-center justify-between shrink-0">
                 <div className="flex items-center space-x-2.5">

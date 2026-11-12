@@ -111,14 +111,14 @@ export const MonthViewModal: React.FC<MonthViewModalProps> = ({
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 bg-stone-900/30 backdrop-blur-xs cursor-pointer overflow-y-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-0 sm:p-4 md:p-6 bg-stone-900/40 backdrop-blur-xs cursor-pointer"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-2xl sm:rounded-3xl max-w-[1460px] w-full h-[94vh] sm:h-[92vh] max-h-[94vh] shadow-2xl border border-[#ded5c5] overflow-hidden animate-scale-up flex flex-col cursor-default my-auto"
+        className="bg-white rounded-none sm:rounded-3xl max-w-[1460px] w-full h-[100dvh] sm:h-[90vh] max-h-[100dvh] sm:max-h-[90vh] shadow-2xl border-0 sm:border border-[#ded5c5] overflow-hidden animate-scale-up flex flex-col cursor-default"
       >
         {/* Header with Month Navigation */}
-        <div className="px-3 sm:px-6 py-2.5 sm:py-3 border-b border-[#eee7da] bg-[#faf8f4] flex items-center justify-between shrink-0 gap-2">
+        <div className="px-3 sm:px-6 py-2 sm:py-3 border-b border-[#eee7da] bg-[#faf8f4] flex items-center justify-between shrink-0 gap-2">
           <div className="flex items-center space-x-2 sm:space-x-3 min-w-0">
             <div className="min-w-0">
               <h3 className="text-base sm:text-2xl font-semibold text-[#2f3833] truncate">
@@ -156,121 +156,119 @@ export const MonthViewModal: React.FC<MonthViewModalProps> = ({
           </button>
         </div>
 
-        {/* Scrollable Month View for phones & tablets */}
-        <div className="flex-1 flex flex-col bg-[#fdfcfb] overflow-x-auto overflow-y-auto">
-          <div className="min-w-[620px] sm:min-w-0 flex-1 flex flex-col h-full">
-            {/* 7 Days of Week Header */}
-            <div className="grid grid-cols-7 border-b border-[#eee7da] bg-[#fbf9f4] text-center text-xs font-bold text-[#685c4c] py-2 shrink-0">
-              {DAY_NAMES.map((name) => (
-                <div key={name} className="uppercase tracking-wider">
-                  <span className="hidden sm:inline">{name}</span>
-                  <span className="sm:hidden">{name.slice(0, 3)}</span>
-                </div>
-              ))}
-            </div>
+        {/* Scaled Month View that always fits 100% of vertical screen */}
+        <div className="flex-1 min-h-0 flex flex-col bg-[#fdfcfb] overflow-hidden w-full">
+          {/* 7 Days of Week Header */}
+          <div className="grid grid-cols-7 border-b border-[#eee7da] bg-[#fbf9f4] text-center text-[10px] sm:text-xs font-bold text-[#685c4c] py-1.5 sm:py-2 shrink-0">
+            {DAY_NAMES.map((name) => (
+              <div key={name} className="uppercase tracking-wider">
+                <span className="hidden sm:inline">{name}</span>
+                <span className="sm:hidden">{name.slice(0, 3)}</span>
+              </div>
+            ))}
+          </div>
 
-            {/* Table/Matrix of the Month: Each row is an elegant week */}
-            <div className="flex-1 flex flex-col divide-y divide-[#eee7da] bg-[#fdfcfb]">
-              {weeksList.map((week) => {
-                const plan = allPlans[week.weekId] || (week.weekId === currentWeekPlan.weekId ? currentWeekPlan : null);
+          {/* Table/Matrix of the Month: Each week flexes equally to fit screen */}
+          <div className="flex-1 min-h-0 flex flex-col divide-y divide-[#eee7da] bg-[#fdfcfb] overflow-hidden">
+            {weeksList.map((week) => {
+              const plan = allPlans[week.weekId] || (week.weekId === currentWeekPlan.weekId ? currentWeekPlan : null);
 
-                return (
-                  <div
-                    key={week.weekId}
-                    className="flex-1 grid grid-cols-7 divide-x divide-[#eee7da] min-h-[85px] sm:min-h-0"
-                  >
-                    {week.days.map((dayItem) => {
-                      const daySlot = plan?.days ? plan.days[dayItem.dayOfWeek] : null;
-                      const lunchDish = daySlot?.lunch?.dishId ? dishesMap[daySlot.lunch.dishId] : null;
-                      const dinnerDish = daySlot?.dinner?.dishId ? dishesMap[daySlot.dinner.dishId] : null;
+              return (
+                <div
+                  key={week.weekId}
+                  className="flex-1 min-h-0 grid grid-cols-7 divide-x divide-[#eee7da]"
+                >
+                  {week.days.map((dayItem) => {
+                    const daySlot = plan?.days ? plan.days[dayItem.dayOfWeek] : null;
+                    const lunchDish = daySlot?.lunch?.dishId ? dishesMap[daySlot.lunch.dishId] : null;
+                    const dinnerDish = daySlot?.dinner?.dishId ? dishesMap[daySlot.dinner.dishId] : null;
 
-                      const hasMeals = !!(lunchDish || dinnerDish);
-                      const isToday = dayItem.dateStr === todayStr;
+                    const hasMeals = !!(lunchDish || dinnerDish);
+                    const isToday = dayItem.dateStr === todayStr;
 
-                      return (
-                        <div
-                          key={dayItem.dateStr}
-                          onClick={() => {
-                            onSelectWeekAndDay(week.weekId, dayItem.dayOfWeek);
-                            onClose();
-                          }}
-                          className={`p-1.5 sm:p-2.5 transition-all cursor-pointer flex flex-col justify-between hover:bg-[#f7faf7] active:bg-[#edf5ed] ${
-                            !dayItem.isInCurrentMonth
-                              ? 'bg-[#fcfbfa]/50 opacity-40'
-                              : isToday
-                              ? 'bg-[#f2f7f2] ring-1 ring-[#709572]/30'
-                              : 'bg-white'
-                          }`}
-                        >
-                          {/* Day Number Header */}
-                          <div className="flex items-center justify-between pb-1 shrink-0">
-                            <span
-                              className={`text-xs font-bold ${
-                                isToday
-                                  ? 'w-5 h-5 rounded-full bg-[#527354] text-white flex items-center justify-center text-[10px]'
-                                  : dayItem.isInCurrentMonth
-                                  ? 'text-[#2d3831]'
-                                  : 'text-[#9b9487]'
-                              }`}
-                            >
-                              {dayItem.dayNumber}
-                            </span>
+                    return (
+                      <div
+                        key={dayItem.dateStr}
+                        onClick={() => {
+                          onSelectWeekAndDay(week.weekId, dayItem.dayOfWeek);
+                          onClose();
+                        }}
+                        className={`p-1 sm:p-2.5 transition-all cursor-pointer flex flex-col justify-between hover:bg-[#f7faf7] active:bg-[#edf5ed] overflow-hidden ${
+                          !dayItem.isInCurrentMonth
+                            ? 'bg-[#fcfbfa]/50 opacity-40'
+                            : isToday
+                            ? 'bg-[#f2f7f2] ring-1 ring-[#709572]/30'
+                            : 'bg-white'
+                        }`}
+                      >
+                        {/* Day Number Header */}
+                        <div className="flex items-center justify-between pb-0.5 shrink-0">
+                          <span
+                            className={`text-[10.5px] sm:text-xs font-bold ${
+                              isToday
+                                ? 'w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#527354] text-white flex items-center justify-center text-[9px] sm:text-[10px]'
+                                : dayItem.isInCurrentMonth
+                                ? 'text-[#2d3831]'
+                                : 'text-[#9b9487]'
+                            }`}
+                          >
+                            {dayItem.dayNumber}
+                          </span>
 
-                            {hasMeals && (
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#698b69]" />
-                            )}
-                          </div>
-
-                          {/* Clean Meals Display: Comida & Cena */}
-                          <div className="flex-1 flex flex-col justify-center space-y-1 my-0.5 overflow-hidden">
-                            {hasMeals ? (
-                              <>
-                                {lunchDish ? (
-                                  <div className="text-[11px] leading-tight" title={`Comida: ${lunchDish.name}`}>
-                                    <span className="text-[10px] font-bold text-[#8b7965] uppercase mr-1">
-                                      C:
-                                    </span>
-                                    <span className="font-semibold text-[#2b352e] truncate inline">
-                                      {lunchDish.name}
-                                    </span>
-                                  </div>
-                                ) : null}
-
-                                {dinnerDish ? (
-                                  <div className="text-[11px] leading-tight" title={`Cena: ${dinnerDish.name}`}>
-                                    <span className="text-[10px] font-bold text-[#647688] uppercase mr-1">
-                                      N:
-                                    </span>
-                                    <span className="font-semibold text-[#2b352e] truncate inline">
-                                      {dinnerDish.name}
-                                    </span>
-                                  </div>
-                                ) : null}
-                              </>
-                            ) : (
-                              <div className="text-[10px] text-[#a89f91] italic py-0.5">
-                                Sin plan
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Week label hint */}
-                          <div className="text-[9px] text-[#9c9384] text-right truncate shrink-0">
-                            S.{week.weekNumber}
-                          </div>
+                          {hasMeals && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#698b69] shrink-0" />
+                          )}
                         </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
+
+                        {/* Clean Meals Display: Comida & Cena */}
+                        <div className="flex-1 min-h-0 flex flex-col justify-center space-y-0.5 my-0.5 overflow-hidden">
+                          {hasMeals ? (
+                            <>
+                              {lunchDish ? (
+                                <div className="text-[9px] sm:text-[11px] leading-tight truncate" title={`Comida: ${lunchDish.name}`}>
+                                  <span className="font-bold text-[#8b7965] uppercase mr-0.5">
+                                    C:
+                                  </span>
+                                  <span className="font-semibold text-[#2b352e]">
+                                    {lunchDish.name}
+                                  </span>
+                                </div>
+                              ) : null}
+
+                              {dinnerDish ? (
+                                <div className="text-[9px] sm:text-[11px] leading-tight truncate" title={`Cena: ${dinnerDish.name}`}>
+                                  <span className="font-bold text-[#647688] uppercase mr-0.5">
+                                    N:
+                                  </span>
+                                  <span className="font-semibold text-[#2b352e]">
+                                    {dinnerDish.name}
+                                  </span>
+                                </div>
+                              ) : null}
+                            </>
+                          ) : (
+                            <div className="text-[9px] sm:text-[10px] text-[#b2a99b] italic truncate hidden sm:block">
+                              Sin plan
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Week label hint */}
+                        <div className="text-[8px] sm:text-[9px] text-[#a09788] text-right truncate shrink-0">
+                          S.{week.weekNumber}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
         </div>
 
         {/* Footer */}
-        <div className="px-4 sm:px-6 py-2 sm:py-2.5 bg-[#faf8f4] border-t border-[#eee7da] flex justify-between items-center text-xs text-[#738075] shrink-0 gap-2">
-          <span className="truncate text-[11px] sm:text-xs">Toca un día para abrirlo en el planificador</span>
+        <div className="px-3 sm:px-6 py-2 sm:py-2.5 bg-[#faf8f4] border-t border-[#eee7da] flex justify-between items-center text-[11px] sm:text-xs text-[#738075] shrink-0 gap-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+          <span className="truncate">Toca un día para abrirlo en el planificador</span>
           <button
             onClick={onClose}
             className="px-3 sm:px-5 py-1.5 rounded-xl text-xs font-semibold bg-[#527354] text-white hover:bg-[#435e45] transition cursor-pointer shrink-0 active:scale-95"
